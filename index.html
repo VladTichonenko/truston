@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Введите пароль</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .password-input {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .password-input input {
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            height: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Введите пароль</h1>
+        <div class="password-input">
+            <input type="password" maxlength="1" id="digit1" oninput="moveToNext(1)">
+            <input type="password" maxlength="1" id="digit2" oninput="moveToNext(2)">
+            <input type="password" maxlength="1" id="digit3" oninput="moveToNext(3)">
+            <input type="password" maxlength="1" id="digit4" oninput="moveToNext(4)">
+        </div>
+        <div class="error" id="error"></div>
+        <button onclick="checkPassword()">Проверить</button>
+    </div>
+
+    <script>
+        function moveToNext(current) {
+            const currentInput = document.getElementById(`digit${current}`);
+            if (currentInput.value.length === 1) {
+                if (current < 4) {
+                    document.getElementById(`digit${current + 1}`).focus();
+                }
+            }
+        }
+
+        function checkPassword() {
+            const digit1 = document.getElementById('digit1').value;
+            const digit2 = document.getElementById('digit2').value;
+            const digit3 = document.getElementById('digit3').value;
+            const digit4 = document.getElementById('digit4').value;
+            
+            const password = digit1 + digit2 + digit3 + digit4;
+            const errorElement = document.getElementById('error');
+            
+            if (password === '0777') {
+                // Переход на вторую страницу
+                window.location.href = "test.html";
+            } else {
+                errorElement.textContent = "Неправильный пароль";
+                // Очищаем поля
+                document.getElementById('digit1').value = '';
+                document.getElementById('digit2').value = '';
+                document.getElementById('digit3').value = '';
+                document.getElementById('digit4').value = '';
+                document.getElementById('digit1').focus();
+            }
+        }
+    </script>
+</body>
+</html>
